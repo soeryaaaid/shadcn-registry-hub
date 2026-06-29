@@ -1,7 +1,7 @@
-import { Header } from "@/components/Header";
+import { RegistryPageClient } from "@/components/RegistryPageClient";
+import { fetchAllRegistries } from "@/lib/registry";
 
-export default function Home() {
-  return (
-    <Header />
-  );
+export default async function Home() {
+  const registries = await fetchAllRegistries();
+  return <RegistryPageClient registries={registries} />;
 }

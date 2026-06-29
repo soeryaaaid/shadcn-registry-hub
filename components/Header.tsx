@@ -1,48 +1,58 @@
 "use client"
 
-import * as React from "react"
+import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { BoxesIcon } from "@hugeicons/core-free-icons"
+import { BoxesIcon, SearchIcon } from "@hugeicons/core-free-icons"
 import { useTheme } from "next-themes"
 
-export function Header() {
-  const { setTheme, theme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
+interface HeaderProps {
+  searchQuery: string;
+  onSearchChange: (value: string) => void;
+}
 
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
+export function Header({ searchQuery, onSearchChange }: HeaderProps) {
+  const { setTheme, theme } = useTheme()
 
   return (
-    <header className="flex items-center justify-between gap-4 p-4 border-b">
-      <div className="flex items-center gap-4">
-        <div className="p-2 rounded-lg border bg-muted">
-          <HugeiconsIcon icon={BoxesIcon} strokeWidth={2} size={24} />
+    <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-4 px-4 border-b bg-background/95 backdrop-blur">
+      {/* Logo */}
+      <div className="flex items-center gap-3 shrink-0">
+        <div className="p-1.5 rounded-lg border bg-muted">
+          <HugeiconsIcon icon={BoxesIcon} strokeWidth={2} size={20} />
         </div>
-        <div className="flex flex-col items-start justify-center">
-          <h1 className="text-lg font-bold">Shadcn Registry Hub</h1>
-          <p className="text-xs text-muted-foreground">Find the best components for your project</p>
+        <div className="hidden sm:flex flex-col leading-none">
+          <span className="text-sm font-bold">Shadcn Registry Hub</span>
+          <span className="text-[10px] text-muted-foreground">Find the best components for your project</span>
         </div>
       </div>
-      <div className="flex items-center gap-4">
+
+      {/* Search — center */}
+      <div className="flex-1 max-w-md relative">
+        <HugeiconsIcon
+          icon={SearchIcon}
+          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none"
+        />
+        <Input
+          type="search"
+          placeholder="Search registries..."
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          className="h-8 text-sm pl-8"
+        />
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center gap-2 shrink-0">
         <Button
-          variant={"outline"}
+          variant="outline"
           size="icon"
+          className="h-8 w-8"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-4.5"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+            strokeLinejoin="round" className="size-4">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
             <path d="M12 3l0 18" />
