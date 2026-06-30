@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "fetch-stars": "node --env-file=.env.local scripts/fetch-stars.mjs"
   },
   "dependencies": {
     "@hugeicons/core-free-icons": "^4.2.2",
