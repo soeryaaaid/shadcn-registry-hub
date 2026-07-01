@@ -1,6 +1,6 @@
 # Shadcn Registry Hub 🗂️
 
-A premium, high-performance registry hub designed to solve the **"UI Brainstorming Block"**. Instead of staring at a blank canvas or trying to design complex interfaces from scratch, this hub helps developers instantly discover and copy beautifully crafted components from the shadcn/ui community.
+Minimalist registry hub designed to solve the **"UI Brainstorming Block"**. Instead of staring at a blank canvas or trying to design complex interfaces from scratch, this hub helps developers instantly discover and copy beautifully crafted components from the shadcn/ui community.
 
 ---
 
@@ -27,15 +27,15 @@ If you are stuck on how your next project should look, you don't need to be a de
 Here is how you can use this hub to speed up your development workflow:
 
 1. **Identify the core need:** Decide whether you need a specific feature (e.g., a map, a payment checkout) or a specific design vibe.
-2. **Filter the Hub:** Click the corresponding tag in the header or on any card.
-3. **Explore and Use:** Click **Visit Homepage ↗** on the registry cards to see live previews, and explore the components directly on their official sites.
+2. **Filter the Hub:** Click the corresponding tag in the header or on any card. Or press **`⌘K` / `Ctrl+K`** to search immediately.
+3. **Explore and Use:** Click **Explore** on the registry cards to explore the components, and see live previews directly on their official sites.
 
 ---
 
 ## 🛠️ Tech Stack
 
 * **Framework:** [Next.js](https://nextjs.org/) (App Router, React Server Components)
-* **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+* **Styling & UI:** [Tailwind CSS v4](https://tailwindcss.com/) & [Radix UI primitives](https://www.radix-ui.com/)
 * **Theme:** [Next Themes](https://github.com/pacocoursey/next-themes) (Dark/Light mode)
 * **Icons:** [Hugeicons React](https://hugeicons.com/)
 
