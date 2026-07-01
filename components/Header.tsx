@@ -1,9 +1,11 @@
 "use client"
 
-import { Input } from "@/components/ui/input"
+import * as React from "react"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import { Button } from "@/components/ui/button"
+import { Kbd } from "@/components/ui/kbd"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { BoxesIcon, SearchIcon } from "@hugeicons/core-free-icons"
+import { BoxesIcon, SearchIcon, Github01Icon } from "@hugeicons/core-free-icons"
 import { useTheme } from "next-themes"
 
 interface HeaderProps {
@@ -13,9 +15,22 @@ interface HeaderProps {
 
 export function Header({ searchQuery, onSearchChange }: HeaderProps) {
   const { setTheme, theme } = useTheme()
+  const inputRef = React.useRef<HTMLInputElement>(null)
+
+  React.useEffect(() => {
+    const handle = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault()
+        inputRef.current?.focus()
+        inputRef.current?.select()
+      }
+    }
+    window.addEventListener("keydown", handle)
+    return () => window.removeEventListener("keydown", handle)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-4 px-4 border-b bg-background/95 backdrop-blur">
+    <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-4 px-4 border-b bg-background">
       {/* Logo */}
       <div className="flex items-center gap-3 shrink-0">
         <div className="p-1.5 rounded-lg border bg-muted">
@@ -28,26 +43,43 @@ export function Header({ searchQuery, onSearchChange }: HeaderProps) {
       </div>
 
       {/* Search — center */}
-      <div className="flex-1 max-w-md relative">
-        <HugeiconsIcon
-          icon={SearchIcon}
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none"
-        />
-        <Input
+      <InputGroup className="max-w-md">
+        <InputGroupInput
+          ref={inputRef}
           type="search"
           placeholder="Search registries..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="h-8 text-sm pl-8"
         />
-      </div>
+        <InputGroupAddon>
+          <HugeiconsIcon icon={SearchIcon} />
+        </InputGroupAddon>
+        <InputGroupAddon align="inline-end">
+          <Kbd>Ctrl K</Kbd>
+        </InputGroupAddon>
+      </InputGroup>
 
       {/* Actions */}
       <div className="flex items-center gap-2 shrink-0">
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
-          className="h-8 w-8"
+          className="rounded-md cursor-pointer"
+        >
+          <a
+            href="https://github.com/soeryaaaid/shadcn-registry-hub"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub Repository"
+          >
+            <HugeiconsIcon icon={Github01Icon} className="size-4" />
+          </a>
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          className="rounded-md cursor-pointer"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
